@@ -16,7 +16,7 @@ Ivy workflow engine
         :target: http://arxiv.org/abs/1607.07443
 
 My Python3 compatable version of ivy. Made from 2to3 and some sugestions from https://github.com/michigraber/ivy
-No guarantee that it works exectly as intended, passes all tests. 
+No guarantee that it works exectly as intended, passes all tests for 3.6/3.7/3.8. 
 
 Simple and flexible workflow engine
 
