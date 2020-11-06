@@ -17,7 +17,7 @@ Created on Mar 6, 2014
 
 author: jakeret
 '''
-from __future__ import print_function, division, absolute_import, unicode_literals
+
 
 from ivy.utils.struct import Struct
 import pickle
@@ -68,6 +68,6 @@ class PickleContextProvider(DefaultContextProvider):
         Writes the current ctx to the disk
         """
         fileName = ctx().ctx_file_name
-        with open(fileName, "w") as ctxFile:
+        with open(fileName, "wb") as ctxFile:
             pickle.dump(ctx(), ctxFile)
     

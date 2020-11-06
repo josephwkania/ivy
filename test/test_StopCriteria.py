@@ -17,7 +17,7 @@ Tests for `ivy.stop_criteria` module.
 
 author: jakeret
 '''
-from __future__ import print_function, division, absolute_import, unicode_literals
+
 
 import pytest
 from ivy.utils.stop_criteria import RangeStopCriteria

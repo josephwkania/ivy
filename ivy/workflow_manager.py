@@ -17,7 +17,7 @@ Created on Mar 4, 2014
 
 author: jakeret
 '''
-from __future__ import print_function, division, absolute_import, unicode_literals
+
 
 from getopt import getopt
 import importlib
@@ -52,10 +52,10 @@ class WorkflowManager(object):
     def _setup(self, argv):
         config = self._parseArgs(argv)
         
-        if not config.has_key(PLUGINS_KEY):
+        if PLUGINS_KEY not in config:
             raise InvalidAttributeException("plugins definition is missing")
         
-        if config.has_key(CONTEXT_PROVIDER_KEY):
+        if CONTEXT_PROVIDER_KEY in config:
             def getContextProviderWrapper():
                 #todo load class not module
                 clazz = config[CONTEXT_PROVIDER_KEY]
@@ -82,7 +82,7 @@ class WorkflowManager(object):
             config = loadConfigs(argv[-1])
         
         # overwrite parameters by command line options
-        optlist, positional = getopt(argv, '', [name.replace('_', '-') + '=' for name in config.keys()])
+        optlist, positional = getopt(argv, '', [name.replace('_', '-') + '=' for name in list(config.keys())])
         if len(positional) != 1:
             raise InvalidAttributeException('only one config file is allowed')
         for opt in optlist:

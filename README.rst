@@ -15,6 +15,9 @@ Ivy workflow engine
 .. image:: http://img.shields.io/badge/arXiv-1607.07443-orange.svg?style=flat
         :target: http://arxiv.org/abs/1607.07443
 
+My Python3 compatable version of ivy. Made from 2to3 and some sugestions from https://github.com/michigraber/ivy
+No guarantee that it works exectly as intended, passes all tests. 
+
 Simple and flexible workflow engine
 
 The **ivy** package has been developed at ETH Zurich in the `Software Lab of the Cosmology Research Group <http://www.cosmology.ethz.ch/research/software-lab.html>`_ of the `ETH Institute of Astronomy <http://www.astro.ethz.ch>`_. 

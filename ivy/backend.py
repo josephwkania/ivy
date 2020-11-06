@@ -17,7 +17,7 @@ Created on Mar 18, 2014
 
 author: jakeret
 '''
-from __future__ import print_function, division, absolute_import, unicode_literals
+
 from multiprocessing import Pool
 import time
 from ivy.context import getContextProvider
@@ -45,7 +45,7 @@ class SequentialBackend(object):
     def run(self, loop, mapPlugin=None):
         if mapPlugin is None: mapPlugin=SimpleMapPlugin(self.ctx)
         
-        return map(LoopWrapper(loop), mapPlugin.getWorkload())
+        return list(map(LoopWrapper(loop), mapPlugin.getWorkload()))
 
 class MultiprocessingBackend(object):
     """

@@ -22,7 +22,7 @@ import pytest
 from ivy.context import ctx
 from ivy.cli.main import _main
 from ivy import context
-from ctx_sensitive_test import ContextSensitiveTest
+from test.ctx_sensitive_test import ContextSensitiveTest
 
 class TestCli(ContextSensitiveTest):
 
@@ -43,7 +43,7 @@ class TestCli(ContextSensitiveTest):
         
     def teardown(self):
         #tidy up
-        print("tearing down " + __name__)
+        print(("tearing down " + __name__))
         pass
     
     

@@ -17,7 +17,7 @@ Created on Mar 4, 2014
 
 author: jakeret
 '''
-from __future__ import print_function, division, absolute_import, unicode_literals
+
 
 from ivy import context
 from ivy.context import loopCtx
@@ -72,7 +72,7 @@ class Loop(object):
     def __iter__(self):
         return self
     
-    def next(self):
+    def __next__(self):
         """
         Returns the next plugin. Allows for using a Loop as an iter
         """
@@ -82,7 +82,7 @@ class Loop(object):
                 raise StopIteration
             
             if self._currentPlugin is None:
-                self._currentPlugin = self.pluginListItr.next()
+                self._currentPlugin = next(self.pluginListItr)
             
                 plugin = self._currentPlugin
                 if isinstance(plugin, BasePlugin):
@@ -90,14 +90,14 @@ class Loop(object):
                     plugin.ctx = self.ctx
                     return plugin
                     
-                if isinstance(plugin, basestring):
+                if isinstance(plugin, str):
                     self._currentPlugin = None
                     return self._instantiate(plugin)
             
             if isinstance(self._currentPlugin, Loop):
                 innerLoop = self._currentPlugin
                 try:
-                    plugin = innerLoop.next()
+                    plugin = next(innerLoop)
                     return plugin
                 except StopIteration:
                     if(loopCtx(innerLoop).state == WorkflowState.EXIT):
@@ -105,7 +105,7 @@ class Loop(object):
                     #inner
                     loopCtx(innerLoop).reset()
                     self._currentPlugin = None
-                    return self.next()
+                    return next(self)
             else:
                 raise UnsupportedPluginTypeException()
         except StopIteration:
@@ -115,7 +115,7 @@ class Loop(object):
             if(self._stopCriteria.isStop()):
                 raise StopIteration
             else:
-                return self.next()
+                return next(self)
     
     def __call__(self):
         """

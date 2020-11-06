@@ -17,9 +17,9 @@ Created on Mar 4, 2014
 
 author: jakeret
 '''
-from __future__ import print_function, division, absolute_import, unicode_literals
 
-import UserDict
+
+from collections.abc import MutableMapping
 from ivy.exceptions.exceptions import IllegalAccessException
 from ivy.utils.utils import Enum
 
@@ -28,7 +28,7 @@ from ivy.utils.utils import Enum
 # when setting/pickling/unpickling
 
 
-class ImmutableStruct(object, UserDict.DictMixin):
+class ImmutableStruct(MutableMapping):
     """
     A `dict`-like object, whose keys can be accessed with the usual
     '[...]' lookup syntax, or with the '.' get attribute syntax.
@@ -64,13 +64,13 @@ class ImmutableStruct(object, UserDict.DictMixin):
         if initializer is not None:
             try:
                 # initializer is `dict`-like?
-                for name, value in initializer.items():
+                for name, value in list(initializer.items()):
                     self.__dict__[name] = value
             except AttributeError:
                 # initializer is a sequence of (name,value) pairs?
                 for name, value in initializer:
                     self.__dict__[name] = value
-        for name, value in extra_args.items():
+        for name, value in list(extra_args.items()):
             self.__dict__[name] = value
 
     def copy(self):
@@ -86,15 +86,26 @@ class ImmutableStruct(object, UserDict.DictMixin):
         return self.__dict__[name]
     
     def keys(self):
-        return self.__dict__.keys()
+        return list(self.__dict__.keys())
     
     def __str__(self):
         str = "{\n"
-        for name, value in self.items():
+        for name, value in list(self.items()):
             str += ("%s='%s'\n" %(name, value))
         str += "}"
         return str
+    
+    def __len__(self):
+        return len(self.__dict__)
 
+    def __iter__(self):
+        return iter(self.__dict__)
+
+    def __delitem__(self, key):
+        del self.__dict__[key]
+
+    def has_key(self, key):
+        return key in list(self.keys())
 class Struct(ImmutableStruct):
     """
     Mutable implementation of a Strcut

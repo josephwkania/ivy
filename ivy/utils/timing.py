@@ -17,7 +17,7 @@ Created on Jul 15, 2014
 
 author: jakeret
 '''
-from __future__ import print_function, division, absolute_import, unicode_literals
+
 from collections import OrderedDict
 
 class SimpleTiming(object):
@@ -47,7 +47,7 @@ class TimingCollection(SimpleTiming):
     def __str__(self):
         s = ""
 #         s+= "{0!s:30}: {1:>7.3f} s".format(self.name, self.duration)
-        for name, durations in self.timings.items():
+        for name, durations in list(self.timings.items()):
             s+= "   {0!s:30}({1}): mean:{2:>7.3f}s sum:{3:>7.3f}s min:{4:>7.3f}s max:{5:>7.3f}s\n".format(name,
                                                                                                          len(durations), 
                                                                                                           sum(durations)/len(durations), 

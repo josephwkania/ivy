@@ -17,7 +17,7 @@ Tests for `ivy.plugin.parallel_plugin_collection ` module.
  
 author: jakeret
 """
-from __future__ import print_function, division, absolute_import, unicode_literals
+
  
 import pytest
  

@@ -17,7 +17,7 @@ Created on Jan 12, 2014
 @author: Joel Akeret
 
 '''
-from __future__ import print_function, division, absolute_import, unicode_literals
+
 
 from collections import OrderedDict
 from ivy.utils.timing import TimingCollection
@@ -37,7 +37,7 @@ class Plugin(BasePlugin):
         print("== Ivy run took: {0:>7.3f} s ===".format(total))
         timing_map = self._reorder_timings(self.ctx.timings)
                 
-        for timing in timing_map.values():
+        for timing in list(timing_map.values()):
             print(self._join_timings(timing))
     
     def _reorder_timings(self, timings):
@@ -55,11 +55,11 @@ class Plugin(BasePlugin):
     
     def _join_timings(self, timing):
         s = ""
-        if(len(timing.timings.values()[0])==1):
+        if(len(list(timing.timings.values())[0])==1):
             s+= "{0!s:30}: {1:>7.3f} s".format(timing.name, timing.duration)
         else:    
             summary_list = []
-            for name, durations in timing.timings.items():
+            for name, durations in list(timing.timings.items()):
                 summary_list.append("{0!s:24}({1:>4d}): {3:>7.3f} s (mean: {2:>7.5f}s min: {4:>7.5f}s max: {5:>7.5f}s)".format(name,
                                                                                                              len(durations), 
                                                                                                               sum(durations)/len(durations), 
